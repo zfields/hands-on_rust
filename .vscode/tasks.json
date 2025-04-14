@@ -1,0 +1,173 @@
+{
+    "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "crateName",
+            "type": "promptString",
+            "description": "Enter the crate name"
+        },
+        {
+            "id": "crateSearch",
+            "type": "promptString",
+            "description": "Enter the search term"
+        },
+        {
+            "id": "errorCode",
+            "type": "promptString",
+            "description": "Enter the error code",
+            "default": "E0381"
+        },
+        {
+           "id": "projectName",
+           "type": "promptString",
+           "description": "Enter the name of the new project (e.g. hello_world)",
+           "default": "hello_world"
+        }
+     ],
+    "tasks": [
+        {
+            "label": "Crate: Info",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo info ${input:crateName}",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Crate: Remove Unused",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo clean",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Crate: Search",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo search ${input:crateSearch}",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Project: Check",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo check",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Project: Clippy Lint",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo clippy",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Project: Clippy Fix",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo clippy --fix --allow-dirty",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Project: Clean",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo clean",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Project: Compile",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo build",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Project: Compile and Run",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo run",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Project: Create New",
+            "type": "shell",
+            "command": "cargo new ${input:projectName}",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Project: Format Code",
+            "type": "shell",
+            "command": "cd ${fileDirname}/.. && cargo fmt --verbose",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Rust: Check for New Release",
+            "type": "shell",
+            "command": "rustup check",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Rust: Explain Error",
+            "type": "shell",
+            "command": "rustc --explain ${input:errorCode}",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        },
+        {
+            "label": "Rust: Update Toolchain",
+            "type": "shell",
+            "command": "rustup update",
+            "args": [],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none"
+            }
+        }
+    ]
+}
